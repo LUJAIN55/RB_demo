@@ -6,7 +6,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/RB_demo/',
+    base: process.env.GITHUB_PAGES === 'true' ? '/RB_demo/' : '/',
     plugins: [
       react(),
       tailwindcss(),
