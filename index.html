@@ -12,17 +12,27 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="/assets/aistudio/RELAY_BUS-09_3aefcf03.svg"
+      href="%BASE_URL%assets/aistudio/RELAY_BUS-09_3aefcf03.svg"
     />
     <link
       rel="alternate icon"
       type="image/png"
-      href="/assets/aistudio/RELAY_BUS-09_586200e7.png"
+      href="%BASE_URL%assets/aistudio/RELAY_BUS-09_586200e7.png"
     />
     <link
       rel="apple-touch-icon"
-      href="/assets/aistudio/RELAY_BUS-09_586200e7.png"
+      href="%BASE_URL%assets/aistudio/RELAY_BUS-09_586200e7.png"
     />
+    <script>
+      (function () {
+        var base = '/RB_demo';
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (p && p.charAt(0) === '/' && p.charAt(1) !== '/') {
+          window.history.replaceState(null, '', base + p);
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -12,6 +12,7 @@ import {
   isRoleAuthorizedForRoute,
   parsePathnameToRoute,
 } from './data/mockAuth';
+import { stripBasePath, withBasePath } from './utils/paths';
 import { CURATED_DEMO_JOURNEYS } from './data/mockJourneys';
 import { AccessDeniedPage } from './pages/AccessDeniedPage';
 import { AiAssistantPage } from './pages/AiAssistantPage';
@@ -39,8 +40,9 @@ export default function App() {
   const [deniedPath, setDeniedPath] = useState<string | null>(null);
   const [pendingProtectedPath, setPendingProtectedPath] = useState<string | null>(() => {
     if (typeof window === 'undefined') return null;
-    const desc = parsePathnameToRoute(window.location.pathname);
-    return desc.requiredRole ? window.location.pathname : null;
+    const stripped = stripBasePath(window.location.pathname);
+    const desc = parsePathnameToRoute(stripped);
+    return desc.requiredRole ? stripped : null;
   });
 
   const [searchParams, setSearchParams] = useState<SearchParams>({
@@ -73,25 +75,26 @@ export default function App() {
     activeUser: AuthenticatedUser | null,
     syncHistory = false
   ) => {
-    const descriptor = parsePathnameToRoute(pathname);
+    const cleanPath = stripBasePath(pathname);
+    const descriptor = parsePathnameToRoute(cleanPath);
 
     if (!activeUser) {
       if (descriptor.requiredRole) {
-        setPendingProtectedPath(pathname);
+        setPendingProtectedPath(cleanPath);
       }
       setCurrentPage('login');
       setDeniedPath(null);
-      if (syncHistory && window.location.pathname !== '/login') {
-        window.history.replaceState({}, '', '/login');
+      if (syncHistory && stripBasePath(window.location.pathname) !== '/login') {
+        window.history.replaceState({}, '', withBasePath('/login'));
       }
       return;
     }
 
     if (!isRoleAuthorizedForRoute(activeUser.role, descriptor.requiredRole)) {
-      setDeniedPath(pathname);
+      setDeniedPath(cleanPath);
       setCurrentPage('access-denied');
       if (syncHistory) {
-        window.history.pushState({}, '', '/access-denied');
+        window.history.pushState({}, '', withBasePath('/access-denied'));
       }
       return;
     }
@@ -107,7 +110,7 @@ export default function App() {
         window.history.replaceState(
           {},
           '',
-          getPathForRoute(defaultPage, defaultSection)
+          withBasePath(getPathForRoute(defaultPage, defaultSection))
         );
       }
       return;
@@ -137,7 +140,7 @@ export default function App() {
   ) => {
     if (!authUser) {
       setCurrentPage('login');
-      window.history.pushState({}, '', '/login');
+      window.history.pushState({}, '', withBasePath('/login'));
       return;
     }
 
@@ -148,7 +151,7 @@ export default function App() {
     if (!isRoleAuthorizedForRoute(authUser.role, descriptor.requiredRole)) {
       setDeniedPath(targetPath);
       setCurrentPage('access-denied');
-      window.history.pushState({}, '', '/access-denied');
+      window.history.pushState({}, '', withBasePath('/access-denied'));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -159,8 +162,9 @@ export default function App() {
       setOpsSection(nextOpsSection);
     }
 
-    if (window.location.pathname !== targetPath) {
-      window.history.pushState({}, '', targetPath);
+    const fullTargetPath = withBasePath(targetPath);
+    if (window.location.pathname !== fullTargetPath) {
+      window.history.pushState({}, '', fullTargetPath);
     }
 
     if (scrollTarget) {
@@ -177,11 +181,12 @@ export default function App() {
 
   const handleTestUnauthorizedRoute = (path: string) => {
     if (!authUser) return;
-    const descriptor = parsePathnameToRoute(path);
+    const cleanPath = stripBasePath(path);
+    const descriptor = parsePathnameToRoute(cleanPath);
     if (!isRoleAuthorizedForRoute(authUser.role, descriptor.requiredRole)) {
-      setDeniedPath(path);
+      setDeniedPath(cleanPath);
       setCurrentPage('access-denied');
-      window.history.pushState({}, '', path);
+      window.history.pushState({}, '', withBasePath(cleanPath));
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -196,25 +201,29 @@ export default function App() {
       if (!isRoleAuthorizedForRoute(user.role, pendingDesc.requiredRole)) {
         setDeniedPath(pendingProtectedPath);
         setCurrentPage('access-denied');
-        window.history.pushState({}, '', pendingProtectedPath);
+        window.history.pushState({}, '', withBasePath(pendingProtectedPath));
         return;
       }
       setCurrentPage(pendingDesc.page);
       if (pendingDesc.opsSection) {
         setOpsSection(pendingDesc.opsSection);
       }
-      window.history.pushState({}, '', pendingProtectedPath);
+      window.history.pushState({}, '', withBasePath(pendingProtectedPath));
       return;
     }
 
     // Standard role-based portal redirect
     if (user.role === 'traveler') {
       setCurrentPage('home');
-      window.history.pushState({}, '', getPathForRoute('home'));
+      window.history.pushState({}, '', withBasePath(getPathForRoute('home')));
     } else {
       setOpsSection('overview');
       setCurrentPage('operations');
-      window.history.pushState({}, '', getPathForRoute('operations', 'overview'));
+      window.history.pushState(
+        {},
+        '',
+        withBasePath(getPathForRoute('operations', 'overview'))
+      );
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -225,7 +234,7 @@ export default function App() {
     setDeniedPath(null);
     setPendingProtectedPath(null);
     setCurrentPage('login');
-    window.history.pushState({}, '', '/login');
+    window.history.pushState({}, '', withBasePath('/login'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { withBasePath } from '../utils/paths';
 
-const PRIMARY_SVG_LOGO = '/assets/aistudio/RELAY_BUS-09_3aefcf03.svg';
-const FALLBACK_PNG_LOGO = '/assets/aistudio/RELAY_BUS-09_586200e7.png';
+const PRIMARY_SVG_LOGO = withBasePath('/assets/aistudio/RELAY_BUS-09_3aefcf03.svg');
+const FALLBACK_PNG_LOGO = withBasePath('/assets/aistudio/RELAY_BUS-09_586200e7.png');
 
 interface BrandLogoProps {
   className?: string;

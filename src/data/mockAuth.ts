@@ -4,6 +4,7 @@ import {
   PageId,
   UserRole,
 } from '../types/relaybus';
+import { stripBasePath } from '../utils/paths';
 
 export const DEMO_ACCOUNTS: Record<UserRole, AuthenticatedUser> = {
   traveler: {
@@ -71,7 +72,8 @@ export function getPathForRoute(page: PageId, opsSection: OpsSection = 'overview
 }
 
 export function parsePathnameToRoute(pathname: string): RouteDescriptor {
-  const clean = pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  const stripped = stripBasePath(pathname);
+  const clean = stripped.toLowerCase().replace(/\/+$/, '') || '/';
 
   if (clean === '/' || clean === '/login') {
     return { requiredRole: null, page: 'login' };

@@ -4,8 +4,9 @@ import {
   SaudiCity,
   TransportMode,
 } from '../types/relaybus';
+import { withBasePath } from '../utils/paths';
 
-export const HERO_IMAGE_PATH = '/src/assets/images/hero_saudi_mobility_1795613941276.jpg';
+export const HERO_IMAGE_PATH = withBasePath('/src/assets/images/hero_saudi_mobility_1795613941276.jpg');
 
 export const OPERATORS: Record<string, OperatorInfo> = {
   saptco: {
@@ -84,7 +85,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'محور قطار · طيران · حافلات', en: 'Rail · Air · Coach Hub' },
     mapCoords: { x: 58, y: 48 },
     featured: true,
-    image: '/src/assets/images/city_riyadh_1795613941993.jpg',
+    image: withBasePath('/src/assets/images/city_riyadh_1795613941993.jpg'),
     sampleRoutesCount: 18,
     startingPriceSar: 95,
     tagline: { ar: 'العاصمة ومحور الربط الوسطي', en: 'Central Capital & Multi-Modal Hub' },
@@ -96,7 +97,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'قطار الحرمين · مطار · حافلات', en: 'Haramain Rail · Airport · Bus' },
     mapCoords: { x: 26, y: 58 },
     featured: true,
-    image: '/src/assets/images/city_jeddah_1795613942437.jpg',
+    image: withBasePath('/src/assets/images/city_jeddah_1795613942437.jpg'),
     sampleRoutesCount: 16,
     startingPriceSar: 75,
     tagline: { ar: 'بوابة البحر الأحمر ومحور الحرمين', en: 'Red Sea Gateway & Rail Terminal' },
@@ -108,7 +109,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'قطار الحرمين · حافلات مركزية', en: 'High-Speed Rail · Intercity Bus' },
     mapCoords: { x: 30, y: 63 },
     featured: true,
-    image: '/src/assets/images/city_makkah_1795613943655.jpg',
+    image: withBasePath('/src/assets/images/city_makkah_1795613943655.jpg'),
     sampleRoutesCount: 14,
     startingPriceSar: 45,
     tagline: { ar: 'ربط سريع مع جدة والمدينة', en: 'High-Speed Western Corridor' },
@@ -120,7 +121,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'قطار الحرمين · مطار · حافلات', en: 'Haramain Rail · Air · Coach' },
     mapCoords: { x: 29, y: 44 },
     featured: true,
-    image: '/src/assets/images/city_madinah_1795613943974.jpg',
+    image: withBasePath('/src/assets/images/city_madinah_1795613943974.jpg'),
     sampleRoutesCount: 12,
     startingPriceSar: 110,
     tagline: { ar: 'تقاطع الشمال والغرب السككي', en: 'North-West Rail & Coach Nexus' },
@@ -132,7 +133,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'قطار سار · مطار · حافلات', en: 'SAR East Rail · Air · Bus' },
     mapCoords: { x: 76, y: 42 },
     featured: true,
-    image: '/src/assets/images/city_dammam_1795613943831.jpg',
+    image: withBasePath('/src/assets/images/city_dammam_1795613943831.jpg'),
     sampleRoutesCount: 15,
     startingPriceSar: 85,
     tagline: { ar: 'واجهة الخليج ومحطة سار الشرقية', en: 'Arabian Gulf & Eastern Rail Hub' },
@@ -144,7 +145,7 @@ export const SAUDI_CITIES: SaudiCity[] = [
     hubType: { ar: 'طيران داخلي · حافلات إقليمية', en: 'Domestic Air · Regional Coach' },
     mapCoords: { x: 19, y: 24 },
     featured: true,
-    image: '/src/assets/images/city_tabuk_1795613943838.jpg',
+    image: withBasePath('/src/assets/images/city_tabuk_1795613943838.jpg'),
     sampleRoutesCount: 9,
     startingPriceSar: 165,
     tagline: { ar: 'بوابة الشمال الغربي', en: 'Northwestern Scenic Gateway' },
