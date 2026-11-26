@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --rb-primary: #167A5B;
+    --rb-primary-hover: #116249;
+    --rb-secondary: #2A9D8F;
+    --rb-accent: #B7E4D2;
+    --rb-bg: #F8FAF7;
+    --rb-surface: #FFFFFF;
+    --rb-text: #24332E;
+    --rb-muted: #75847D;
+    --rb-border: #E1E9E4;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--rb-bg);
+    color: var(--rb-text);
+    font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html[lang="en"] {
+    font-family: "Plus Jakarta Sans", "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--rb-bg);
+    color: var(--rb-text);
+    overflow-x: hidden;
+  }
+
+  button,
+  a,
+  input,
+  select {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.font-mono-tabular {
+  font-family: "IBM Plex Mono", "IBM Plex Sans Arabic", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
